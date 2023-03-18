@@ -1,0 +1,23 @@
+{
+  "name": "react-fancy-circular-carousel",
+  "version": "0.0.1",
+  "description": "Interactive circular carousel with image elements highly customisable as per the developer's needs",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc && cp package.json README.md ./dist"
+  },
+  "keywords": ["react", "slider", "carousel", "image-slider"],
+  "author": {
+    "name": "Ninad Sutrave",
+    "email": "ninadsutrave@gmail.com",
+    "url": "https://ninadsutrave.in"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.0.2"
+  }
+}

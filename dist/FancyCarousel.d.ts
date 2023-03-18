@@ -1,0 +1,24 @@
+import { FC } from 'react';
+import './FancyCarousel.css';
+interface CarouselInfo {
+    images: string[];
+    setFocusElement?: Function;
+    offsetAngle?: number;
+    carouselRadius?: number;
+    centralImageRadius?: number;
+    centralImageBoxShadow?: string;
+    peripheralImageRadius?: number;
+    peripheralImageBoxShadow?: string;
+    focusElementStyling?: any;
+    border?: boolean;
+    borderWidth?: number;
+    borderHexColor?: string;
+    autoRotateTime?: number;
+    navigationVisibility?: boolean;
+    navigationTextSize?: number;
+    navigationButtonRadius?: number;
+    navigationButtonBackgroundColor?: string;
+    navigationButtonColor?: string;
+}
+export declare const FancyCarousel: FC<CarouselInfo>;
+export {};
