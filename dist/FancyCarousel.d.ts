@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import './FancyCarousel.css';
 interface CarouselInfo {
     images: string[];
     setFocusElement?: Function;

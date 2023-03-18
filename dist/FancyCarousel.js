@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './FancyCarousel.css';
 export const FancyCarousel = ({ images, setFocusElement = () => { }, offsetAngle, carouselRadius = 400, centralImageRadius = 125, centralImageBoxShadow = '5px 10px 18px #888888', peripheralImageRadius = 75, peripheralImageBoxShadow = '5px 10px 18px #888888', focusElementStyling = {}, border = true, borderWidth = 5, borderHexColor = '4CAF50', autoRotateTime = 0, navigationVisibility = true, navigationTextSize = 2, navigationButtonRadius = 32.5, navigationButtonBackgroundColor = '4CAF50', navigationButtonColor = 'FFFFFF' }) => {
     const [carousel, setCarousel] = useState({
         carouselOrietation: 0,
