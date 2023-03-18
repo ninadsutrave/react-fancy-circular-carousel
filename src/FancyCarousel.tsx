@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react'
-import './FancyCarousel.css'
 
 interface CarouselInfo {
   images: string[],

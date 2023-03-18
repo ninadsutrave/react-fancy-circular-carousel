@@ -1,1 +1,3 @@
-export { FancyCarousel } from './FancyCarousel'
+import { FancyCarousel } from './FancyCarousel'
+
+export default FancyCarousel
