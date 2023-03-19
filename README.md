@@ -18,6 +18,7 @@
 #### Parameters
 
 | **Parameter** | **Type** | **Description** |
+|:---|:---|:---|
 | images | String[] | `required` List of image sources |
 | setFocusElement | Function | `optional` SetState method to get focus element in parent component |
 | offsetAngle | Number | `optional` Angle in degrees to offset the carousel |
@@ -59,7 +60,7 @@ export default () => (
 
 ## NPM Module
 
-[Add it to your chrome browser now to try it out!](https://chrome.google.com/webstore/detail/lookup/lamkbakfmcoaibacdbpgejffopbhhpgn?hl=en)  
+[Npm Page](https://www.npmjs.com/package/react-fancy-circular-carousel)  
 Try it out for yourselves and ⭐ this repo if you like it!
 
 ## License
