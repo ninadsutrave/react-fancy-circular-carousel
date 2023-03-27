@@ -19,7 +19,7 @@
 
 | **Parameter** | **Type** | **Description** |
 |:---|:---|:---|
-| images | String[] | `required` List of image sources |
+| images | String[] | `optional` List of image sources, optionallys displays featured Unsplash images |
 | setFocusElement | Function | `optional` SetState method to get focus element in parent component |
 | offsetAngle | Number | `optional` Angle in degrees to offset the carousel |
 | carouselRadius | Number | `optional` Carousel radius in px |
@@ -37,6 +37,7 @@
 | navigationButtonRadius | Number | `optional` Navigation button radius in px |
 | navigationButtonColor | String | `optional` ↓ Arrow hex color as a string excludin the '#' |
 | navigationButtonBackgroundColor | String | `optional` Navigation button hex color as a string excludin the '#' |
+| navigationButtonStyling | Any | `optional` Custom styling for navigation buttons |
 
 
 ```jsx

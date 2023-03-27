@@ -18,6 +18,7 @@ interface CarouselInfo {
     navigationButtonRadius?: number;
     navigationButtonBackgroundColor?: string;
     navigationButtonColor?: string;
+    navigationButtonStyling?: any;
 }
 export declare const FancyCarousel: FC<CarouselInfo>;
 export {};

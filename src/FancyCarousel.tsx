@@ -18,13 +18,14 @@ interface CarouselInfo {
   navigationTextSize?: number,
   navigationButtonRadius?: number,
   navigationButtonBackgroundColor?: string,
-  navigationButtonColor?: string
+  navigationButtonColor?: string,
+  navigationButtonStyling?: any
 }
 
 export const FancyCarousel: FC<CarouselInfo> 
-    = ({images, 
+    = ({images = ["https://source.unsplash.com/featured/300x200","https://source.unsplash.com/featured/300x201","https://source.unsplash.com/featured/300x202","https://source.unsplash.com/featured/300x203","https://source.unsplash.com/featured/300x204","https://source.unsplash.com/featured/300x205"], 
         setFocusElement = () => {},
-        offsetAngle,
+        offsetAngle = 0,
         carouselRadius = 400, 
         centralImageRadius = 125, 
         centralImageBoxShadow = '5px 10px 18px #888888',
@@ -33,13 +34,14 @@ export const FancyCarousel: FC<CarouselInfo>
         focusElementStyling = {},
         border = true, 
         borderWidth = 5, 
-        borderHexColor  = '4CAF50', 
+        borderHexColor  = 'CB786C', 
         autoRotateTime = 0,
         navigationVisibility = true, 
         navigationTextSize = 2,
         navigationButtonRadius = 32.5, 
-        navigationButtonBackgroundColor = '4CAF50', 
-        navigationButtonColor = 'FFFFFF'
+        navigationButtonBackgroundColor = 'CB786C', 
+        navigationButtonColor = 'FFFFFF',
+        navigationButtonStyling = ''
       }: CarouselInfo) => {
 
   const [carousel, setCarousel] = useState({
@@ -77,6 +79,20 @@ export const FancyCarousel: FC<CarouselInfo>
       })
   }
 
+  var newCoordinates: number[][] = []
+  images.forEach((item, index) => {
+    newCoordinates.push([carouselRadius - peripheralImageRadius + carouselRadius*Math.cos(2*Math.PI * index/noOfImages), carouselRadius - peripheralImageRadius + carouselRadius*Math.sin(2*Math.PI * index/noOfImages)])
+  })
+
+  // rotate point around (carouselRadius-peripheralRadius, carouselRadius-peripheralRadius) by (offset+90) deg
+  const totalDeviation: number = offsetAngle*Math.PI/180 + Math.PI/2
+
+  var rotatedCoordinates: number[][] = []
+  const centerCoordinate: number = carouselRadius - peripheralImageRadius
+  newCoordinates.forEach((item, index) => {
+    rotatedCoordinates.push([centerCoordinate + (item[0] - centerCoordinate)*Math.cos(totalDeviation) - (item[1] - centerCoordinate)*Math.sin(totalDeviation), centerCoordinate + (item[0] - centerCoordinate)*Math.sin(totalDeviation) + (item[1] - centerCoordinate)*Math.cos(totalDeviation)])
+  })
+
   return (
       <div className="fancy-carousel-wrapper-element">
         <div className="fancy-carousel-border" 
@@ -96,8 +112,8 @@ export const FancyCarousel: FC<CarouselInfo>
                   key={index}
                   style={{ 
                             transform: `rotate(${carousel.elementOrientation}deg)`, width: `${peripheralImageRadius*2}px`, height: `${peripheralImageRadius*2}px`,
-                            left:      `${carouselRadius - peripheralImageRadius + carouselRadius*Math.cos(2*Math.PI * index/noOfImages)}px`, 
-                            bottom:    `${carouselRadius - peripheralImageRadius + carouselRadius*Math.sin(2*Math.PI * index/noOfImages)}px`,
+                            left:      `${rotatedCoordinates[index][0]}px`, 
+                            bottom:    `${rotatedCoordinates[index][1]}px`,
                             boxShadow: `${peripheralImageBoxShadow}`
                         }}
                 >
@@ -109,8 +125,8 @@ export const FancyCarousel: FC<CarouselInfo>
                   key={index}
                   style={{...{ 
                             transform: `rotate(${carousel.elementOrientation}deg)`, width: `${peripheralImageRadius*2}px`, height: `${peripheralImageRadius*2}px`,
-                            left:      `${carouselRadius - peripheralImageRadius + carouselRadius*Math.cos(2*Math.PI * index/noOfImages)}px`, 
-                            bottom:    `${carouselRadius - peripheralImageRadius + carouselRadius*Math.sin(2*Math.PI * index/noOfImages)}px`,
+                            left:      `${rotatedCoordinates[index][0]}px`, 
+                            bottom:    `${rotatedCoordinates[index][1]}px`,
                             boxShadow: `${peripheralImageBoxShadow}`
                         }, ...focusElementStyling}}
                 >
@@ -139,20 +155,20 @@ export const FancyCarousel: FC<CarouselInfo>
         <div className={"navigators " + ((navigationVisibility)?"":"invisible")}
              style={{gap: `${carouselRadius*2}px`, marginLeft: `-${navigationButtonRadius*1.5}px`}}>
               <button className="navigation-button" onClick={rotateLeft}
-                      style={{ 
+                      style={{...{ 
                               width: `${navigationButtonRadius*2}px`, height: `${navigationButtonRadius*2}px`,
                               backgroundColor: `#${navigationButtonBackgroundColor}`, color: `#${navigationButtonColor}`,
                               fontSize: `${navigationTextSize}rem`
-                            }}
+                            }, ...navigationButtonStyling}}
               >
                 ↓
               </button>
               <button className="navigation-button" onClick={rotateRight}
-                      style={{ 
+                      style={{...{ 
                               width: `${navigationButtonRadius*2}px`, height: `${navigationButtonRadius*2}px`,
                               backgroundColor: `#${navigationButtonBackgroundColor}`, color: `#${navigationButtonColor}`,
                               fontSize: `${navigationTextSize}rem`
-                            }}
+                            }, ...navigationButtonStyling}}
               >   
                 ↓
               </button>
