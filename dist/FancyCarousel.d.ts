@@ -1,6 +1,6 @@
 import { FC } from 'react';
 interface CarouselInfo {
-    images: string[];
+    images?: string[];
     setFocusElement?: Function;
     offsetAngle?: number;
     carouselRadius?: number;
@@ -13,10 +13,10 @@ interface CarouselInfo {
     borderWidth?: number;
     borderHexColor?: string;
     autoRotateTime?: number;
-    navigationVisibility?: boolean;
+    transitionTime?: number;
     navigationTextSize?: number;
     navigationButtonRadius?: number;
-    navigationButtonBackgroundColor?: string;
+    navigationButtonBgColor?: string;
     navigationButtonColor?: string;
     navigationButtonStyling?: any;
 }

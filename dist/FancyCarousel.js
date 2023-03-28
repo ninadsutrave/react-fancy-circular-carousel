@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-export const FancyCarousel = ({ images = ["https://source.unsplash.com/featured/300x200", "https://source.unsplash.com/featured/300x201", "https://source.unsplash.com/featured/300x202", "https://source.unsplash.com/featured/300x203", "https://source.unsplash.com/featured/300x204", "https://source.unsplash.com/featured/300x205"], setFocusElement = () => { }, offsetAngle = 0, carouselRadius = 400, centralImageRadius = 125, centralImageBoxShadow = '5px 10px 18px #888888', peripheralImageRadius = 75, peripheralImageBoxShadow = '5px 10px 18px #888888', focusElementStyling = {}, border = true, borderWidth = 5, borderHexColor = 'CB786C', autoRotateTime = 0, navigationVisibility = true, navigationTextSize = 2, navigationButtonRadius = 32.5, navigationButtonBackgroundColor = 'CB786C', navigationButtonColor = 'FFFFFF', navigationButtonStyling = '' }) => {
+export const FancyCarousel = ({ images = ["https://source.unsplash.com/featured/300x200", "https://source.unsplash.com/featured/300x201", "https://source.unsplash.com/featured/300x202", "https://source.unsplash.com/featured/300x203", "https://source.unsplash.com/featured/300x204", "https://source.unsplash.com/featured/300x205"], setFocusElement = () => { }, offsetAngle = 0, carouselRadius = 400, centralImageRadius = 125, centralImageBoxShadow = '5px 10px 18px #888888', peripheralImageRadius = 75, peripheralImageBoxShadow = '5px 10px 18px #888888', focusElementStyling = {}, border = true, borderWidth = 5, borderHexColor = 'CB786C', autoRotateTime = 0, transitionTime = 1.5, navigationTextSize = 2, navigationButtonRadius = 32.5, navigationButtonBgColor = 'CB786C', navigationButtonColor = 'FFFFFF', navigationButtonStyling = '' }) => {
     const [carousel, setCarousel] = useState({
         carouselOrietation: 0,
         elementOrientation: 0,
@@ -40,7 +40,7 @@ export const FancyCarousel = ({ images = ["https://source.unsplash.com/featured/
         rotatedCoordinates.push([centerCoordinate + (item[0] - centerCoordinate) * Math.cos(totalDeviation) - (item[1] - centerCoordinate) * Math.sin(totalDeviation), centerCoordinate + (item[0] - centerCoordinate) * Math.sin(totalDeviation) + (item[1] - centerCoordinate) * Math.cos(totalDeviation)]);
     });
     return (React.createElement("div", { className: "fancy-carousel-wrapper-element" },
-        React.createElement("div", { className: "fancy-carousel-border", style: { backgroundImage: borderElement, height: `${carouselRadius * 2}px`, width: `${carouselRadius * 2}px` } },
+        React.createElement("div", { className: "fancy-carousel-border", style: { backgroundImage: borderElement, height: `${carouselRadius * 2}px`, width: `${carouselRadius * 2}px`, transition: `${transitionTime}` } },
             React.createElement("div", { className: "fancy-carousel", style: {
                     transform: `rotate(${carousel.carouselOrietation}deg)`,
                     height: `${carouselRadius * 2}px`, width: `${carouselRadius * 2}px`
@@ -50,31 +50,34 @@ export const FancyCarousel = ({ images = ["https://source.unsplash.com/featured/
                             transform: `rotate(${carousel.elementOrientation}deg)`, width: `${peripheralImageRadius * 2}px`, height: `${peripheralImageRadius * 2}px`,
                             left: `${rotatedCoordinates[index][0]}px`,
                             bottom: `${rotatedCoordinates[index][1]}px`,
-                            boxShadow: `${peripheralImageBoxShadow}`
+                            boxShadow: `${peripheralImageBoxShadow}`,
+                            transition: `${transitionTime}`
                         } },
                         React.createElement("img", { className: "fancy-carousel-image", src: item, style: { width: `${peripheralImageRadius * 2}px`, height: `${peripheralImageRadius * 2}px` } })) :
                     React.createElement("div", { className: "fancy-carousel-element", key: index, style: Object.assign({
                             transform: `rotate(${carousel.elementOrientation}deg)`, width: `${peripheralImageRadius * 2}px`, height: `${peripheralImageRadius * 2}px`,
                             left: `${rotatedCoordinates[index][0]}px`,
                             bottom: `${rotatedCoordinates[index][1]}px`,
-                            boxShadow: `${peripheralImageBoxShadow}`
+                            boxShadow: `${peripheralImageBoxShadow}`,
+                            transition: `${transitionTime}`
                         }, focusElementStyling) },
-                        React.createElement("img", { className: "fancy-carousel-image", src: item, style: { width: `${peripheralImageRadius * 2}px`, height: `${peripheralImageRadius * 2}px` } })))),
+                        React.createElement("img", { className: "fancy-carousel-image", src: item, style: { width: `${peripheralImageRadius * 2}px`, height: `${peripheralImageRadius * 2}px`, transition: `${transitionTime}` } })))),
                 React.createElement("div", { className: "fancy-carousel-element central-img", key: noOfImages, style: {
                         transform: `rotate(${carousel.elementOrientation}deg)`, width: `${centralImageRadius * 2}px`, height: `${centralImageRadius * 2}px`,
                         left: `${carouselRadius - centralImageRadius - 10}px`, bottom: `${carouselRadius - centralImageRadius - 10}px`,
-                        boxShadow: `${centralImageBoxShadow}`
+                        boxShadow: `${centralImageBoxShadow}`,
+                        transition: `${transitionTime}`
                     } },
-                    React.createElement("img", { className: "fancy-carousel-central-image", src: images[carousel.focusElement], style: { width: `${centralImageRadius * 2}px`, height: `${centralImageRadius * 2}px` } })))),
-        React.createElement("div", { className: "navigators " + ((navigationVisibility) ? "" : "invisible"), style: { gap: `${carouselRadius * 2}px`, marginLeft: `-${navigationButtonRadius * 1.5}px` } },
+                    React.createElement("img", { className: "fancy-carousel-central-image", src: images[carousel.focusElement], style: { width: `${centralImageRadius * 2}px`, height: `${centralImageRadius * 2}px`, transition: `${transitionTime}` } })))),
+        React.createElement("div", { className: "navigators " + ((!autoRotateTime) ? "" : "invisible"), style: { gap: `${carouselRadius * 2}px`, marginLeft: `-${navigationButtonRadius * 1.8}px` } },
             React.createElement("button", { className: "navigation-button", onClick: rotateLeft, style: Object.assign({
                     width: `${navigationButtonRadius * 2}px`, height: `${navigationButtonRadius * 2}px`,
-                    backgroundColor: `#${navigationButtonBackgroundColor}`, color: `#${navigationButtonColor}`,
+                    backgroundColor: `#${navigationButtonBgColor}`, color: `#${navigationButtonColor}`,
                     fontSize: `${navigationTextSize}rem`
                 }, navigationButtonStyling) }, "\u2193"),
             React.createElement("button", { className: "navigation-button", onClick: rotateRight, style: Object.assign({
                     width: `${navigationButtonRadius * 2}px`, height: `${navigationButtonRadius * 2}px`,
-                    backgroundColor: `#${navigationButtonBackgroundColor}`, color: `#${navigationButtonColor}`,
+                    backgroundColor: `#${navigationButtonBgColor}`, color: `#${navigationButtonColor}`,
                     fontSize: `${navigationTextSize}rem`
                 }, navigationButtonStyling) }, "\u2193"))));
 };

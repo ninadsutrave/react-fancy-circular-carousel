@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 
 interface CarouselInfo {
-  images: string[],
+  images?: string[],
   setFocusElement?: Function,
   offsetAngle?: number,
   carouselRadius?: number,
@@ -14,10 +14,10 @@ interface CarouselInfo {
   borderWidth?: number,
   borderHexColor?: string,
   autoRotateTime?: number,
-  navigationVisibility?: boolean,
+  transitionTime?: number,
   navigationTextSize?: number,
   navigationButtonRadius?: number,
-  navigationButtonBackgroundColor?: string,
+  navigationButtonBgColor?: string,
   navigationButtonColor?: string,
   navigationButtonStyling?: any
 }
@@ -36,10 +36,10 @@ export const FancyCarousel: FC<CarouselInfo>
         borderWidth = 5, 
         borderHexColor  = 'CB786C', 
         autoRotateTime = 0,
-        navigationVisibility = true, 
+        transitionTime = 1.5,
         navigationTextSize = 2,
         navigationButtonRadius = 32.5, 
-        navigationButtonBackgroundColor = 'CB786C', 
+        navigationButtonBgColor = 'CB786C', 
         navigationButtonColor = 'FFFFFF',
         navigationButtonStyling = ''
       }: CarouselInfo) => {
@@ -96,7 +96,7 @@ export const FancyCarousel: FC<CarouselInfo>
   return (
       <div className="fancy-carousel-wrapper-element">
         <div className="fancy-carousel-border" 
-             style={{backgroundImage: borderElement, height: `${carouselRadius*2}px`, width: `${carouselRadius*2}px`}}
+             style={{backgroundImage: borderElement, height: `${carouselRadius*2}px`, width: `${carouselRadius*2}px`, transition: `${transitionTime}`}}
         >
           <div
             className="fancy-carousel"
@@ -114,7 +114,8 @@ export const FancyCarousel: FC<CarouselInfo>
                             transform: `rotate(${carousel.elementOrientation}deg)`, width: `${peripheralImageRadius*2}px`, height: `${peripheralImageRadius*2}px`,
                             left:      `${rotatedCoordinates[index][0]}px`, 
                             bottom:    `${rotatedCoordinates[index][1]}px`,
-                            boxShadow: `${peripheralImageBoxShadow}`
+                            boxShadow: `${peripheralImageBoxShadow}`,
+                            transition: `${transitionTime}`
                         }}
                 >
                   <img className="fancy-carousel-image" src={item}
@@ -127,11 +128,12 @@ export const FancyCarousel: FC<CarouselInfo>
                             transform: `rotate(${carousel.elementOrientation}deg)`, width: `${peripheralImageRadius*2}px`, height: `${peripheralImageRadius*2}px`,
                             left:      `${rotatedCoordinates[index][0]}px`, 
                             bottom:    `${rotatedCoordinates[index][1]}px`,
-                            boxShadow: `${peripheralImageBoxShadow}`
+                            boxShadow: `${peripheralImageBoxShadow}`,
+                            transition: `${transitionTime}`
                         }, ...focusElementStyling}}
                 >
                   <img className="fancy-carousel-image" src={item}
-                       style={{width: `${peripheralImageRadius*2}px`, height: `${peripheralImageRadius*2}px`}} />
+                       style={{width: `${peripheralImageRadius*2}px`, height: `${peripheralImageRadius*2}px`, transition: `${transitionTime}`}} />
                 </div>
             ))}
 
@@ -141,23 +143,23 @@ export const FancyCarousel: FC<CarouselInfo>
                 style={{ 
                           transform: `rotate(${carousel.elementOrientation}deg)`, width: `${centralImageRadius*2}px`, height: `${centralImageRadius*2}px`,
                           left: `${carouselRadius - centralImageRadius - 10}px`, bottom: `${carouselRadius - centralImageRadius - 10}px`,
-                          boxShadow: `${centralImageBoxShadow}`
+                          boxShadow: `${centralImageBoxShadow}`,
+                          transition: `${transitionTime}`
                       }}
                 > 
                 <img className="fancy-carousel-central-image" src={images[carousel.focusElement]}
-                  style={{width: `${centralImageRadius*2}px`, height: `${centralImageRadius*2}px`}} 
+                  style={{width: `${centralImageRadius*2}px`, height: `${centralImageRadius*2}px`, transition: `${transitionTime}`}} 
                 />
             </div>
-
           </div>
         </div>
 
-        <div className={"navigators " + ((navigationVisibility)?"":"invisible")}
-             style={{gap: `${carouselRadius*2}px`, marginLeft: `-${navigationButtonRadius*1.5}px`}}>
+        <div className={"navigators " + ((!autoRotateTime)?"":"invisible")}
+             style={{gap: `${carouselRadius*2}px`, marginLeft: `-${navigationButtonRadius*1.8}px`}}>
               <button className="navigation-button" onClick={rotateLeft}
                       style={{...{ 
                               width: `${navigationButtonRadius*2}px`, height: `${navigationButtonRadius*2}px`,
-                              backgroundColor: `#${navigationButtonBackgroundColor}`, color: `#${navigationButtonColor}`,
+                              backgroundColor: `#${navigationButtonBgColor}`, color: `#${navigationButtonColor}`,
                               fontSize: `${navigationTextSize}rem`
                             }, ...navigationButtonStyling}}
               >
@@ -166,7 +168,7 @@ export const FancyCarousel: FC<CarouselInfo>
               <button className="navigation-button" onClick={rotateRight}
                       style={{...{ 
                               width: `${navigationButtonRadius*2}px`, height: `${navigationButtonRadius*2}px`,
-                              backgroundColor: `#${navigationButtonBackgroundColor}`, color: `#${navigationButtonColor}`,
+                              backgroundColor: `#${navigationButtonBgColor}`, color: `#${navigationButtonColor}`,
                               fontSize: `${navigationTextSize}rem`
                             }, ...navigationButtonStyling}}
               >   

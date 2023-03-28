@@ -21,7 +21,7 @@
 |:---|:---|:---|
 | images | String[] | `optional` List of image sources, optionallys displays featured Unsplash images |
 | setFocusElement | Function | `optional` SetState method to get focus element in parent component |
-| offsetAngle | Number | `optional` Angle in degrees to offset the carousel |
+| offsetAngle | Number | `optional` Angle in degrees to offset the carousel elements |
 | carouselRadius | Number | `optional` Carousel radius in px |
 | centralImageRadius | Number | `optional` Central image radius in px |
 | centralImageBoxShadow | String | `optional` Central image box shadow property |
@@ -32,11 +32,11 @@
 | borderWidth | Number | `optional` Border stroke width property in px |
 | borderHexColor | String | `optional` Border hex color as a string excluding the '#' |
 | autoRotateTime | Number | `optional` Time in seconds for an auto rotating carousel |
-| navigationVisibility | Boolean | `optional` Enable/disable bordering |
+| transitionTime | Number | `optional` Time in seconds for the rotating transition |
 | navigationTextSize | Number | `optional` ↓ Arrow font size in rem |
 | navigationButtonRadius | Number | `optional` Navigation button radius in px |
-| navigationButtonColor | String | `optional` ↓ Arrow hex color as a string excludin the '#' |
-| navigationButtonBackgroundColor | String | `optional` Navigation button hex color as a string excludin the '#' |
+| navigationButtonColor | String | `optional` ↓ Arrow hex color as a string excluding the '#' |
+| navigationButtonBgColor | String | `optional` Navigation button hex color as a string excluding the '#' |
 | navigationButtonStyling | Any | `optional` Custom styling for navigation buttons |
 
 
@@ -44,13 +44,15 @@
 import React from "react";
 import FancyCarousel from "react-fancy-circular-carousel";
 
-export default () => (
-  <>
-    {/* animate individual element. */}
-    <FancyCarousel images={}>
-  </>
-);
+export const YourComponent () => (
 
+  const imageSourcesUrl = ['/src/image1.png', '/src/image1.png', '/src/image1.png', '/src/image1.png']
+  // a string arrray containing sources of locally stored images or images from the web
+
+  return <div>
+    <FancyCarousel images={imageSourcesUrl} />
+  </div>
+);
 ```
 
 #### Play with the parameters
