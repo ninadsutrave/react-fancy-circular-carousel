@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, CSSProperties } from 'react'
 
 interface CarouselInfo {
   images?: string[],
@@ -9,7 +9,7 @@ interface CarouselInfo {
   centralImageBoxShadow?: string,
   peripheralImageRadius?: number,
   peripheralImageBoxShadow?: string,
-  focusElementStyling?: any,
+  focusElementStyling?: CSSProperties,
   border?: boolean,
   borderWidth?: number,
   borderHexColor?: string,
@@ -19,7 +19,7 @@ interface CarouselInfo {
   navigationButtonRadius?: number,
   navigationButtonBgColor?: string,
   navigationButtonColor?: string,
-  navigationButtonStyling?: any
+  navigationButtonStyling?: CSSProperties
 }
 
 export const FancyCarousel: FC<CarouselInfo> 
@@ -41,7 +41,7 @@ export const FancyCarousel: FC<CarouselInfo>
         navigationButtonRadius = 32.5, 
         navigationButtonBgColor = 'CB786C', 
         navigationButtonColor = 'FFFFFF',
-        navigationButtonStyling = ''
+        navigationButtonStyling = {}
       }: CarouselInfo) => {
 
   const [carousel, setCarousel] = useState({
