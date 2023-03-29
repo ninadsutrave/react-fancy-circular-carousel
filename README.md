@@ -99,8 +99,7 @@ const YourComponent = () => (
       <div className="info-box-wrapper">
         <p> {info[focusElement]} </p>
       </div>
-    <div
-  </div>
+    <div>
 );
 
 export default YourComponent;
@@ -109,7 +108,9 @@ export default YourComponent;
 #### Customisations
 
 Customise the carousel to your needs such as modifying the carousel size, image size, adding styling such as drop shadow, adding auto rotate, etc
-The focusElementStyling and navigationButtonStyling props are of type React.CSSProperties, which is essentially a JavaScript object containing camelcased CSS properties and their corresponding values. To know more check the official documentation [here](https://legacy.reactjs.org/docs/dom-elements.html#style).
+The focusElementStyling and navigationButtonStyling props are of type React.CSSProperties, which is essentially a JavaScript object containing camelcased CSS properties and their corresponding values. 
+
+To know more check the official documentation [here](https://legacy.reactjs.org/docs/dom-elements.html#style).
 
 ```jsx
 import React from "react";
