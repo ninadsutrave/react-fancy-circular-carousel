@@ -25,7 +25,7 @@
 
 | **Parameter** | **Type** | **Description** |
 |:---|:---|:---|
-| images | String[] | `optional` List of image sources, optionallys displays featured Unsplash images |
+| images | String[] | `optional` List of image sources |
 | setFocusElement | Function | `optional` SetState method to get focus element in parent component |
 | offsetAngle | Number | `optional` Angle in degrees to offset the carousel elements |
 | carouselRadius | Number | `optional` Carousel radius in px |
