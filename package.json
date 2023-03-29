@@ -13,7 +13,10 @@
     "email": "ninadsutrave@gmail.com",
     "url": "https://ninadsutrave.in"
   },
-  "repo": "https://github.com/ninadsutrave/react-fancy-circular-carousel",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ninadsutrave/react-fancy-circular-carousel"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/react": "^18.0.28",
