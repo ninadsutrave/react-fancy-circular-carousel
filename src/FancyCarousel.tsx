@@ -154,9 +154,9 @@ export const FancyCarousel: FC<CarouselInfo>
           </div>
         </div>
 
-        <div className={"navigators " + ((!autoRotateTime)?"":"invisible")}
+        <div className={"fancy-carousel-navigators " + ((autoRotateTime)?"invisible":"")}
              style={{gap: `${carouselRadius*2}px`, marginLeft: `-${navigationButtonRadius*1.8}px`}}>
-              <button className="navigation-button" onClick={rotateLeft}
+              <button className="fancy-carousel-navigation-button" onClick={rotateLeft}
                       style={{...{ 
                               width: `${navigationButtonRadius*2}px`, height: `${navigationButtonRadius*2}px`,
                               backgroundColor: `#${navigationButtonBgColor}`, color: `#${navigationButtonColor}`,
@@ -165,7 +165,7 @@ export const FancyCarousel: FC<CarouselInfo>
               >
                 ↓
               </button>
-              <button className="navigation-button" onClick={rotateRight}
+              <button className="fancy-carousel-navigation-button" onClick={rotateRight}
                       style={{...{ 
                               width: `${navigationButtonRadius*2}px`, height: `${navigationButtonRadius*2}px`,
                               backgroundColor: `#${navigationButtonBgColor}`, color: `#${navigationButtonColor}`,

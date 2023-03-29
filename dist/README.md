@@ -6,12 +6,18 @@
 
 - Circular image carousel
 - Everything you see is customisable
-- Get focus element to add your own components
+- Get focus element to add in your own components
 - Smooth, easy to implement, fantastic UI
 
 ## Install
 
     $ npm install react-fancy-circular-carousel
+
+  Include the styles by importing node_modules/react-fancy-circular-carousel/FancyCarousel.css
+
+  ```jsx
+    import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
+  ```
 
 ## Quickstart
 
@@ -27,7 +33,7 @@
 | centralImageBoxShadow | String | `optional` Central image box shadow property |
 | peripheralImageRadius | Number | `optional` Peripheral Image radius in px |
 | peripheralImageBoxShadow | String | `optional` Peripheral image box shadow property |
-| focusElementStyling | Any | `optional` Custom styling for the element in focus |
+| focusElementStyling | React.CSSProperties | `optional` Custom styling for the element in focus |
 | border | Boolean | `optional` Enable/disable bordering |
 | borderWidth | Number | `optional` Border stroke width property in px |
 | borderHexColor | String | `optional` Border hex color as a string excluding the '#' |
@@ -37,29 +43,111 @@
 | navigationButtonRadius | Number | `optional` Navigation button radius in px |
 | navigationButtonColor | String | `optional` ↓ Arrow hex color as a string excluding the '#' |
 | navigationButtonBgColor | String | `optional` Navigation button hex color as a string excluding the '#' |
-| navigationButtonStyling | Any | `optional` Custom styling for navigation buttons |
+| navigationButtonStyling | React.CSSProperties | `optional` Custom styling for navigation buttons |
 
 
 ```jsx
 import React from "react";
+
 import FancyCarousel from "react-fancy-circular-carousel";
+import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
 
-export const YourComponent () => (
+import image1 from './assets/image1.png';
+import image2 from './assets/image2.png';
+import image3 from './assets/image3.png';
+import image4 from './assets/image4.png';
 
-  const imageSourcesUrl = ['/src/image1.png', '/src/image1.png', '/src/image1.png', '/src/image1.png']
-  // a string arrray containing sources of locally stored images or images from the web
 
-  return <div>
+const YourComponent = () => (
+
+  const imageSourcesUrl = [image1, image2, image3, image4];
+
+  return <div className="carousel">
     <FancyCarousel images={imageSourcesUrl} />
   </div>
 );
+
+export default YourComponent;
 ```
 
-#### Play with the parameters
+#### Retrieve focus element
 
+Utility using which one can know which element is currently at focus and may add relevant components around it. 
+For eg. if the carousel portrays images of cities, this feature may help you update the description in the information box along side the carousel.
 
-## Preview 
+```jsx
+import React, { useState } from "react";
 
+import FancyCarousel from "react-fancy-circular-carousel";
+import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
+
+import image1 from './assets/image1.png';
+import image2 from './assets/image2.png';
+import image3 from './assets/image3.png';
+import image4 from './assets/image4.png';
+
+const YourComponent = () => (
+
+  // the focus element would be the array index of the currently image at focus
+  const [focusElement, setFocusElement] = useState(0);
+
+  const imageSourcesUrl = [image1, image2, image3, image4];
+  const info = ['Delhi', 'Mumbai', 'Bengaluru', 'Kolkata'];
+
+  return <div className="carousel">
+      <FancyCarousel images={imageSourcesUrl} />
+      <div className="info-box-wrapper">
+        <p> {info[focusElement]} </p>
+      </div>
+    <div
+  </div>
+);
+
+export default YourComponent;
+```
+
+#### Customisations
+
+Customise the carousel to your needs such as modifying the carousel size, image size, adding styling such as drop shadow, adding auto rotate, etc
+The focusElementStyling and navigationButtonStyling props are of type React.CSSProperties, which is essentially a JavaScript object containing camelcased CSS properties and their corresponding values. To know more check the official documentation [here](https://legacy.reactjs.org/docs/dom-elements.html#style).
+
+```jsx
+import React from "react";
+
+import FancyCarousel from "react-fancy-circular-carousel";
+import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
+
+import image1 from './assets/image1.png';
+import image2 from './assets/image2.png';
+import image3 from './assets/image3.png';
+import image4 from './assets/image4.png';
+
+const YourComponent = () => (
+
+  const imageSourcesUrl = [image1, image2, image3, image4];
+
+  return <div className="carousel">
+    <FancyCarousel 
+      images={imageSourcesUrl} 
+      carouselRadius={400}
+      peripheralImageRadius={100}
+      centralImageRadius={200}
+      focusElementStyling={{border: '2px solid #ba4949'}}
+      autoRotateTime={3}
+      borderWidth={4}
+      borderHexColor={'1c364f'}
+    />
+  </div>
+);
+
+export default YourComponent;
+```
+
+## Preview
+
+![Preview Image](src/assets/preview1.png)
+
+![Preview Gif](src/assets/preview2.gif)
 
 ## NPM Module
 

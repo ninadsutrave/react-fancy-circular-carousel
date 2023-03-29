@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, CSSProperties } from 'react';
 interface CarouselInfo {
     images?: string[];
     setFocusElement?: Function;
@@ -8,7 +8,7 @@ interface CarouselInfo {
     centralImageBoxShadow?: string;
     peripheralImageRadius?: number;
     peripheralImageBoxShadow?: string;
-    focusElementStyling?: any;
+    focusElementStyling?: CSSProperties;
     border?: boolean;
     borderWidth?: number;
     borderHexColor?: string;
@@ -18,7 +18,7 @@ interface CarouselInfo {
     navigationButtonRadius?: number;
     navigationButtonBgColor?: string;
     navigationButtonColor?: string;
-    navigationButtonStyling?: any;
+    navigationButtonStyling?: CSSProperties;
 }
 export declare const FancyCarousel: FC<CarouselInfo>;
 export {};

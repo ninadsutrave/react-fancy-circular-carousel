@@ -6,12 +6,18 @@
 
 - Circular image carousel
 - Everything you see is customisable
-- Get focus element to add your own components
+- Get focus element to add in your own components
 - Smooth, easy to implement, fantastic UI
 
 ## Install
 
     $ npm install react-fancy-circular-carousel
+
+  Include the styles by importing node_modules/react-fancy-circular-carousel/FancyCarousel.css
+
+  ```jsx
+    import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
+  ```
 
 ## Quickstart
 
@@ -42,21 +48,26 @@
 
 ```jsx
 import React from "react";
+
 import FancyCarousel from "react-fancy-circular-carousel";
+import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
 
-export const YourComponent () => (
+import image1 from './assets/image1.png';
+import image2 from './assets/image2.png';
+import image3 from './assets/image3.png';
+import image4 from './assets/image4.png';
 
-  const imageSourcesUrl = ['./src/assets/image1.png', 
-                           './src/assets/image1.png', 
-                           './src/assets/image1.png', 
-                           './src/assets/image1.png']
 
-  // a string arrray containing sources of locally stored images or images from the web
+const YourComponent = () => (
+
+  const imageSourcesUrl = [image1, image2, image3, image4];
 
   return <div className="carousel">
     <FancyCarousel images={imageSourcesUrl} />
   </div>
 );
+
+export default YourComponent;
 ```
 
 #### Retrieve focus element
@@ -66,21 +77,22 @@ For eg. if the carousel portrays images of cities, this feature may help you upd
 
 ```jsx
 import React, { useState } from "react";
-import FancyCarousel from "react-fancy-circular-carousel";
 
-export const YourComponent () => (
+import FancyCarousel from "react-fancy-circular-carousel";
+import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
+
+import image1 from './assets/image1.png';
+import image2 from './assets/image2.png';
+import image3 from './assets/image3.png';
+import image4 from './assets/image4.png';
+
+const YourComponent = () => (
 
   // the focus element would be the array index of the currently image at focus
   const [focusElement, setFocusElement] = useState(0);
 
-  const imageSourcesUrl = ['./src/assets/image1.png', 
-                           './src/assets/image1.png', 
-                           './src/assets/image1.png', 
-                           './src/assets/image1.png'];
-
+  const imageSourcesUrl = [image1, image2, image3, image4];
   const info = ['Delhi', 'Mumbai', 'Bengaluru', 'Kolkata'];
-
-  // a string arrray containing sources of locally stored images or images from the web
 
   return <div className="carousel">
       <FancyCarousel images={imageSourcesUrl} />
@@ -90,6 +102,8 @@ export const YourComponent () => (
     <div
   </div>
 );
+
+export default YourComponent;
 ```
 
 #### Customisations
@@ -99,16 +113,18 @@ The focusElementStyling and navigationButtonStyling props are of type React.CSSP
 
 ```jsx
 import React from "react";
+
 import FancyCarousel from "react-fancy-circular-carousel";
+import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
 
-export const YourComponent () => (
+import image1 from './assets/image1.png';
+import image2 from './assets/image2.png';
+import image3 from './assets/image3.png';
+import image4 from './assets/image4.png';
 
-  const imageSourcesUrl = ['./src/assets/image1.png', 
-                           './src/assets/image1.png', 
-                           './src/assets/image1.png', 
-                           './src/assets/image1.png']
+const YourComponent = () => (
 
-  // a string arrray containing sources of locally stored images or images from the web
+  const imageSourcesUrl = [image1, image2, image3, image4];
 
   return <div className="carousel">
     <FancyCarousel 
@@ -117,16 +133,21 @@ export const YourComponent () => (
       peripheralImageRadius={100}
       centralImageRadius={200}
       focusElementStyling={{border: '2px solid #ba4949'}}
-      autoRotate={true}
+      autoRotateTime={3}
       borderWidth={4}
       borderHexColor={'1c364f'}
     />
   </div>
 );
+
+export default YourComponent;
 ```
 
-## Preview 
+## Preview
 
+![Preview Image](src/assets/preview1.png)
+
+![Preview Gif](src/assets/preview2.gif)
 
 ## NPM Module
 
