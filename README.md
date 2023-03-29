@@ -1,6 +1,6 @@
 <div align="center"><p align="center"><a href="https://www.npmjs.com/package/react-fancy-circular-carousel"><img src="./React.webp" alt="React Logo - Carousel UI Component" width="140px" /></a></p></div>
 
-<h1 align="center">React Fancy Image Carousel</h1>
+<h1 align="center">React Circular Carousel Component</h1>
 
 ## Features
 
@@ -13,15 +13,15 @@
 
     $ npm install react-fancy-circular-carousel
 
-  Include the styles by importing node_modules/react-fancy-circular-carousel/FancyCarousel.css
+  Include the styles by importing FancyCarousel.css
 
   ```jsx
-    import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
+  import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
   ```
 
 ## Quickstart
 
-#### Parameters
+### Parameters
 
 | **Parameter** | **Type** | **Description** |
 |:---|:---|:---|
@@ -45,6 +45,7 @@
 | navigationButtonBgColor | String | `optional` Navigation button hex color as a string excluding the '#' |
 | navigationButtonStyling | React.CSSProperties | `optional` Custom styling for navigation buttons |
 
+### Usage
 
 ```jsx
 import React from "react";
@@ -60,17 +61,17 @@ import image4 from './assets/image4.png';
 
 const YourComponent = () => (
 
-  const imageSourcesUrl = [image1, image2, image3, image4];
+  const images = [image1, image2, image3, image4];
 
   return <div className="carousel">
-    <FancyCarousel images={imageSourcesUrl} />
+    <FancyCarousel images={images} />
   </div>
 );
 
 export default YourComponent;
 ```
 
-#### Retrieve focus element
+### Retrieve focus element
 
 Utility using which one can know which element is currently at focus and may add relevant components around it. 
 For eg. if the carousel portrays images of cities, this feature may help you update the description in the information box along side the carousel.
@@ -91,11 +92,11 @@ const YourComponent = () => (
   // the focus element would be the array index of the currently image at focus
   const [focusElement, setFocusElement] = useState(0);
 
-  const imageSourcesUrl = [image1, image2, image3, image4];
+  const images = [image1, image2, image3, image4];
   const info = ['Delhi', 'Mumbai', 'Bengaluru', 'Kolkata'];
 
   return <div className="carousel">
-      <FancyCarousel images={imageSourcesUrl} />
+      <FancyCarousel images={images} setFocusElement={setFocusElement}/>
       <div className="info-box-wrapper">
         <p> {info[focusElement]} </p>
       </div>
@@ -105,7 +106,7 @@ const YourComponent = () => (
 export default YourComponent;
 ```
 
-#### Customisations
+### Customisations
 
 Customise the carousel to your needs such as modifying the carousel size, image size, adding styling such as drop shadow, adding auto rotate, etc
 The focusElementStyling and navigationButtonStyling props are of type React.CSSProperties, which is essentially a JavaScript object containing camelcased CSS properties and their corresponding values. 
@@ -125,11 +126,11 @@ import image4 from './assets/image4.png';
 
 const YourComponent = () => (
 
-  const imageSourcesUrl = [image1, image2, image3, image4];
+  const images = [image1, image2, image3, image4];
 
   return <div className="carousel">
     <FancyCarousel 
-      images={imageSourcesUrl} 
+      images={images} 
       carouselRadius={400}
       peripheralImageRadius={100}
       centralImageRadius={200}
@@ -146,7 +147,11 @@ export default YourComponent;
 
 ## Preview
 
+With navigators
+
 ![Preview Image](src/assets/preview1.png)
+
+With auto rotation
 
 ![Preview Gif](src/assets/preview2.gif)
 

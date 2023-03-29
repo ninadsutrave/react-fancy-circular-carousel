@@ -9,8 +9,6 @@
 
 .fancy-carousel {
     position: relative;
-    width: 800px;
-    height: 800px;
     border-radius: 50%;
     transition: 0.5s;
     transform-origin: center center;

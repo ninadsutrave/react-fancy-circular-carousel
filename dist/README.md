@@ -1,6 +1,6 @@
-<div align="center"><p align="center"><a href="https://www.npmjs.com/package/react-fancy-circular-carousel"><img src="./assets/React.webp" alt="React Logo - Carousel UI Component" width="140px" /></a></p></div>
+<div align="center"><p align="center"><a href="https://www.npmjs.com/package/react-fancy-circular-carousel"><img src="https://github.com/ninadsutrave/react-fancy-circular-carousel/blob/master/dist/assets/React.webp?raw=true" alt="React Logo - Carousel UI Component" width="140px" /></a></p></div>
 
-<h1 align="center">React Fancy Image Carousel</h1>
+<h1 align="center">React Circular Carousel Component</h1>
 
 ## Features
 
@@ -13,15 +13,15 @@
 
     $ npm install react-fancy-circular-carousel
 
-  Include the styles by importing node_modules/react-fancy-circular-carousel/FancyCarousel.css
+  Include the styles by importing FancyCarousel.css
 
   ```jsx
-    import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
+  import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
   ```
 
 ## Quickstart
 
-#### Parameters
+### Parameters
 
 | **Parameter** | **Type** | **Description** |
 |:---|:---|:---|
@@ -46,7 +46,10 @@
 | navigationButtonStyling | React.CSSProperties | `optional` Custom styling for navigation buttons |
 
 
+### Usage
+
 ```jsx
+
 import React from "react";
 
 import FancyCarousel from "react-fancy-circular-carousel";
@@ -57,22 +60,22 @@ import image2 from './assets/image2.png';
 import image3 from './assets/image3.png';
 import image4 from './assets/image4.png';
 
-
 const YourComponent = () => (
 
-  const imageSourcesUrl = [image1, image2, image3, image4];
+  const images = [image1, image2, image3, image4];
 
   return <div className="carousel">
-    <FancyCarousel images={imageSourcesUrl} />
+    <FancyCarousel images={images} />
   </div>
 );
 
 export default YourComponent;
 ```
 
-#### Retrieve focus element
+### Retrieve focus element
 
 Utility using which one can know which element is currently at focus and may add relevant components around it. 
+
 For eg. if the carousel portrays images of cities, this feature may help you update the description in the information box along side the carousel.
 
 ```jsx
@@ -91,11 +94,11 @@ const YourComponent = () => (
   // the focus element would be the array index of the currently image at focus
   const [focusElement, setFocusElement] = useState(0);
 
-  const imageSourcesUrl = [image1, image2, image3, image4];
+  const images = [image1, image2, image3, image4];
   const info = ['Delhi', 'Mumbai', 'Bengaluru', 'Kolkata'];
 
   return <div className="carousel">
-      <FancyCarousel images={imageSourcesUrl} />
+      <FancyCarousel images={images} setFocusElement={setFocusElement}/>
       <div className="info-box-wrapper">
         <p> {info[focusElement]} </p>
       </div>
@@ -105,9 +108,10 @@ const YourComponent = () => (
 export default YourComponent;
 ```
 
-#### Customisations
+### Customisations
 
 Customise the carousel to your needs such as modifying the carousel size, image size, adding styling such as drop shadow, adding auto rotate, etc
+
 The focusElementStyling and navigationButtonStyling props are of type React.CSSProperties, which is essentially a JavaScript object containing camelcased CSS properties and their corresponding values. 
 
 To know more check the official documentation [here](https://legacy.reactjs.org/docs/dom-elements.html#style).
@@ -125,11 +129,11 @@ import image4 from './assets/image4.png';
 
 const YourComponent = () => (
 
-  const imageSourcesUrl = [image1, image2, image3, image4];
+  const images = [image1, image2, image3, image4];
 
   return <div className="carousel">
     <FancyCarousel 
-      images={imageSourcesUrl} 
+      images={images} 
       carouselRadius={400}
       peripheralImageRadius={100}
       centralImageRadius={200}
@@ -146,14 +150,18 @@ export default YourComponent;
 
 ## Preview
 
-![Preview Image](assets/preview1.png)
+With navigators
 
-![Preview Gif](assets/preview2.gif)
+![Preview Image](https://github.com/ninadsutrave/react-fancy-circular-carousel/blob/master/dist/assets/preview1.png?raw=true)
 
-## NPM Module
+With auto rotation
 
-[Npm Page](https://www.npmjs.com/package/react-fancy-circular-carousel)  
-Try it out for yourselves and ⭐ this repo if you like it!
+![Preview Gif](https://github.com/ninadsutrave/react-fancy-circular-carousel/blob/master/dist/assets/preview2.gif?raw=true)
+
+## Github Repo
+
+[Github Repo](https://github.com/ninadsutrave/react-fancy-circular-carousel)  
+Try it out for yourselves and ⭐ the repo if you like it!
 
 ## License
 
