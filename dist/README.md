@@ -1,4 +1,4 @@
-<div align="center"><p align="center"><a href="https://www.npmjs.com/package/react-fancy-circular-carousel"><img src="./React.webp" alt="React Logo - Carousel UI Component" width="140px" /></a></p></div>
+<div align="center"><p align="center"><a href="https://www.npmjs.com/package/react-fancy-circular-carousel"><img src="./assets/React.webp" alt="React Logo - Carousel UI Component" width="140px" /></a></p></div>
 
 <h1 align="center">React Fancy Image Carousel</h1>
 
@@ -146,9 +146,9 @@ export default YourComponent;
 
 ## Preview
 
-![Preview Image](src/assets/preview1.png)
+![Preview Image](assets/preview1.png)
 
-![Preview Gif](src/assets/preview2.gif)
+![Preview Gif](assets/preview2.gif)
 
 ## NPM Module
 
