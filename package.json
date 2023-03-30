@@ -13,9 +13,6 @@
     "email": "ninadsutrave@gmail.com",
     "url": "https://ninadsutrave.in"
   },
-  "publishConfig": { 
-    "registry":"https://npm.pkg.github.com"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/ninadsutrave/react-fancy-circular-carousel"
