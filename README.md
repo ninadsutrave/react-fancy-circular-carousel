@@ -1,4 +1,4 @@
-<div align="center"><p align="center"><a href="https://www.npmjs.com/package/react-fancy-circular-carousel"><img src="./React.webp" alt="React Logo - Carousel UI Component" width="140px" /></a></p></div>
+<div align="center"><p align="center"><a href="https://www.npmjs.com/package/react-fancy-circular-carousel"><img src="./src/assets/React.webp" alt="React Logo - Carousel UI Component" width="140px" /></a></p></div>
 
 <h1 align="center">React Circular Carousel Component</h1>
 

@@ -1,4 +1,4 @@
-<div align="center"><p align="center"><a href="https://www.npmjs.com/package/react-fancy-circular-carousel"><img src="https://github.com/ninadsutrave/react-fancy-circular-carousel/blob/master/dist/assets/React.webp?raw=true" alt="React Logo - Carousel UI Component" width="140px" /></a></p></div>
+<div align="center"><p align="center"><a href="https://www.npmjs.com/package/react-fancy-circular-carousel"><img src="https://github.com/ninadsutrave/react-fancy-circular-carousel/blob/master/src/assets/React.webp?raw=true" alt="React Logo - Carousel UI Component" width="140px" /></a></p></div>
 
 <h1 align="center">React Circular Carousel Component</h1>
 
@@ -152,11 +152,11 @@ export default YourComponent;
 
 With navigators
 
-![Preview Image](https://github.com/ninadsutrave/react-fancy-circular-carousel/blob/master/dist/assets/preview1.png?raw=true)
+![Preview Image](https://github.com/ninadsutrave/react-fancy-circular-carousel/blob/master/src/assets/preview1.png?raw=true)
 
 With auto rotation
 
-![Preview Gif](https://github.com/ninadsutrave/react-fancy-circular-carousel/blob/master/dist/assets/preview2.gif?raw=true)
+![Preview Gif](https://github.com/ninadsutrave/react-fancy-circular-carousel/blob/master/src/assets/preview2.gif?raw=true)
 
 ## Github Repo
 
