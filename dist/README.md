@@ -9,7 +9,7 @@
 - Get focus element to add in your own components
 - Smooth, easy to implement, fantastic UI
 
-## Install
+## Installation
 
     $ npm install react-fancy-circular-carousel
 
@@ -91,7 +91,7 @@ import image4 from './assets/image4.png';
 
 const YourComponent = () => (
 
-  // the focus element would be the array index of the currently image at focus
+  // the focus element would be the array index of the image currently at focus
   const [focusElement, setFocusElement] = useState(0);
 
   const images = [image1, image2, image3, image4];
