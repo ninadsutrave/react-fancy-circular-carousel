@@ -1,6 +1,6 @@
 {
   "name": "react-fancy-circular-carousel",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Interactive circular carousel with image elements highly customisable as per the developer's needs",
   "main": "index.js",
   "scripts": {
