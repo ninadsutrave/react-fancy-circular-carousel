@@ -18,7 +18,7 @@ Try the demo [here](https://carousel-demopage.netlify.app).
   Include the styles by importing FancyCarousel.css
 
   ```jsx
-  import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
+  import 'react-fancy-circular-carousel/FancyCarousel.css';
   ```
 
 ## Quickstart
@@ -53,7 +53,7 @@ Try the demo [here](https://carousel-demopage.netlify.app).
 import React from "react";
 
 import FancyCarousel from "react-fancy-circular-carousel";
-import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
+import 'react-fancy-circular-carousel/FancyCarousel.css';
 
 import image1 from './assets/image1.png';
 import image2 from './assets/image2.png';
@@ -82,7 +82,7 @@ For eg. if the carousel portrays images of cities, this feature may help you upd
 import React, { useState } from "react";
 
 import FancyCarousel from "react-fancy-circular-carousel";
-import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
+import 'react-fancy-circular-carousel/FancyCarousel.css';
 
 import image1 from './assets/image1.png';
 import image2 from './assets/image2.png';
@@ -119,7 +119,7 @@ To know more check the official documentation [here](https://legacy.reactjs.org/
 import React from "react";
 
 import FancyCarousel from "react-fancy-circular-carousel";
-import '../node_modules/react-fancy-circular-carousel/FancyCarousel.css';
+import 'react-fancy-circular-carousel/FancyCarousel.css';
 
 import image1 from './assets/image1.png';
 import image2 from './assets/image2.png';
