@@ -4,6 +4,8 @@
 
 ## Features
 
+Try the demo [here](https://carousel-demopage.netlify.app).
+
 - Circular image carousel
 - Everything you see is customisable
 - Get focus element to add in your own components

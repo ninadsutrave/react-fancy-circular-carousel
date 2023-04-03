@@ -1,6 +1,6 @@
 {
   "name": "react-fancy-circular-carousel",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Interactive circular carousel with image elements highly customisable as per the developer's needs",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
     "email": "ninadsutrave@gmail.com",
     "url": "https://ninadsutrave.in"
   },
+  "homepage": "https://carousel-demopage.netlify.app",
   "repository": {
     "type": "git",
     "url": "https://github.com/ninadsutrave/react-fancy-circular-carousel"
