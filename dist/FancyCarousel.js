@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-//importing images
-import image1 from './assets/greatwall.webp';
-import image2 from './assets/pyramid.webp';
-import image3 from './assets/petra.webp';
-import image4 from './assets/machupicchu.webp';
-import image5 from './assets/christ.webp';
-import image6 from './assets/colosseum.webp';
-import image7 from './assets/tajmahal.webp';
-export const FancyCarousel = ({ images = [image1, image2, image3, image4, image5, image6, image7], setFocusElement = () => { }, offsetAngle = 0, carouselRadius = 400, centralImageRadius = 125, centralImageBoxShadow = '5px 10px 18px #888888', peripheralImageRadius = 75, peripheralImageBoxShadow = '5px 10px 18px #888888', focusElementStyling = {}, border = true, borderWidth = 5, borderHexColor = 'CB786C', autoRotateTime = 0, transitionTime = 1.5, navigationTextSize = 2, navigationButtonRadius = 32.5, navigationButtonBgColor = 'CB786C', navigationButtonColor = 'FFFFFF', navigationButtonStyling = {} }) => {
+export const FancyCarousel = ({ images, setFocusElement = () => { }, offsetAngle = 0, carouselRadius = 400, centralImageRadius = 125, centralImageBoxShadow = '5px 10px 18px #888888', peripheralImageRadius = 75, peripheralImageBoxShadow = '5px 10px 18px #888888', focusElementStyling = {}, border = true, borderWidth = 5, borderHexColor = 'CB786C', autoRotateTime = 0, transitionTime = 1.5, navigationTextSize = 2, navigationButtonRadius = 32.5, navigationButtonBgColor = 'CB786C', navigationButtonColor = 'FFFFFF', navigationButtonStyling = {} }) => {
     const [carousel, setCarousel] = useState({
         carouselOrietation: 0,
         elementOrientation: 0,

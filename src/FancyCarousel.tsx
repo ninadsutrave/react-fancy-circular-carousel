@@ -1,16 +1,7 @@
 import React, { FC, useState, CSSProperties } from 'react'
 
-//importing images
-import image1 from './assets/greatwall.webp';
-import image2 from './assets/pyramid.webp';
-import image3 from './assets/petra.webp';
-import image4 from './assets/machupicchu.webp';
-import image5 from './assets/christ.webp';
-import image6 from './assets/colosseum.webp';
-import image7 from './assets/tajmahal.webp';
-
 interface CarouselInfo {
-  images?: string[],
+  images: string[],
   setFocusElement?: Function,
   offsetAngle?: number,
   carouselRadius?: number,
@@ -33,7 +24,7 @@ interface CarouselInfo {
 
 export const FancyCarousel: FC<CarouselInfo> 
     = ({
-        images = [image1, image2, image3, image4, image5, image6, image7], 
+        images, 
         setFocusElement = () => {},
         offsetAngle = 0,
         carouselRadius = 400, 

@@ -27,7 +27,7 @@ Try the demo [here](https://carousel-demopage.netlify.app).
 
 | **Parameter** | **Type** | **Description** |
 |:---|:---|:---|
-| images | String[] | `optional` List of image sources |
+| images | String[] | `mandatory` List of image sources |
 | setFocusElement | Function | `optional` SetState method to get focus element in parent component |
 | offsetAngle | Number | `optional` Angle in degrees to offset the carousel elements |
 | carouselRadius | Number | `optional` Carousel radius in px |

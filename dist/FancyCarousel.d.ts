@@ -1,6 +1,6 @@
 import { FC, CSSProperties } from 'react';
 interface CarouselInfo {
-    images?: string[];
+    images: string[];
     setFocusElement?: Function;
     offsetAngle?: number;
     carouselRadius?: number;
