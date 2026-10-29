@@ -1,8 +1,8 @@
-import React, { FC, useState, CSSProperties } from 'react'
+import React, { FC, useState, useEffect, CSSProperties } from 'react'
 
 interface CarouselInfo {
   images: string[],
-  setFocusElement?: Function,
+  setFocusElement?: (focusElement: number) => void,
   offsetAngle?: number,
   carouselRadius?: number,
   centralImageRadius?: number,
@@ -37,7 +37,7 @@ export const FancyCarousel: FC<CarouselInfo>
         borderWidth = 5, 
         borderHexColor  = 'CB786C', 
         autoRotateTime = 0,
-        transitionTime = 1.5,
+        transitionTime = 0.5,
         navigationTextSize = 2,
         navigationButtonRadius = 32.5, 
         navigationButtonBgColor = 'CB786C', 
@@ -51,34 +51,36 @@ export const FancyCarousel: FC<CarouselInfo>
     focusElement: 0
   })
 
-  setFocusElement(carousel.focusElement)
-
-  if(autoRotateTime) {
-    setTimeout(() => {
-      rotateRight()
-    }, autoRotateTime*1000)
-  }
-  
   const noOfImages: number = images.length
   const theta: number = 360/noOfImages
 
   const borderElement: string = (border)?`url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'${carouselRadius*2}\' ry=\'${carouselRadius*2}\' stroke=\'%23${borderHexColor}FF\' stroke-width=\'${borderWidth}\' stroke-dasharray=\'6%2c 24\' stroke-dashoffset=\'0\' stroke-linecap=\'square\'/%3e%3c/svg%3e")`:''
 
   const rotateRight = () => {
-      setCarousel({
-          carouselOrietation: carousel.carouselOrietation + theta,
-          elementOrientation: carousel.elementOrientation - theta,
-          focusElement: (carousel.focusElement<(noOfImages-1))?carousel.focusElement + 1:0
-      })
+      setCarousel(prev => ({
+          carouselOrietation: prev.carouselOrietation + theta,
+          elementOrientation: prev.elementOrientation - theta,
+          focusElement: (prev.focusElement<(noOfImages-1))?prev.focusElement + 1:0
+      }))
   }
 
   const rotateLeft = () => {
-      setCarousel({
-          carouselOrietation: carousel.carouselOrietation - theta,
-          elementOrientation: carousel.elementOrientation + theta,
-          focusElement: (carousel.focusElement>0)?carousel.focusElement - 1:noOfImages-1
-      })
+      setCarousel(prev => ({
+          carouselOrietation: prev.carouselOrietation - theta,
+          elementOrientation: prev.elementOrientation + theta,
+          focusElement: (prev.focusElement>0)?prev.focusElement - 1:noOfImages-1
+      }))
   }
+
+  useEffect(() => {
+    setFocusElement(carousel.focusElement)
+  }, [carousel.focusElement])
+
+  useEffect(() => {
+    if(!autoRotateTime) return
+    const timer = setInterval(rotateRight, autoRotateTime*1000)
+    return () => clearInterval(timer)
+  }, [autoRotateTime, noOfImages])
 
   var newCoordinates: number[][] = []
   images.forEach((item, index) => {
@@ -97,13 +99,14 @@ export const FancyCarousel: FC<CarouselInfo>
   return (
       <div className="fancy-carousel-wrapper-element">
         <div className="fancy-carousel-border" 
-             style={{backgroundImage: borderElement, height: `${carouselRadius*2}px`, width: `${carouselRadius*2}px`, transition: `${transitionTime}`}}
+             style={{backgroundImage: borderElement, height: `${carouselRadius*2}px`, width: `${carouselRadius*2}px`, transition: `${transitionTime}s`}}
         >
           <div
             className="fancy-carousel"
             style={{ 
                      transform: `rotate(${carousel.carouselOrietation}deg)`, 
-                     height: `${carouselRadius*2}px`, width: `${carouselRadius*2}px` 
+                     height: `${carouselRadius*2}px`, width: `${carouselRadius*2}px`,
+                     transition: `${transitionTime}s`
                    }}
           >
             {images.map((item, index) => (
@@ -116,7 +119,7 @@ export const FancyCarousel: FC<CarouselInfo>
                             left:      `${rotatedCoordinates[index][0]}px`, 
                             bottom:    `${rotatedCoordinates[index][1]}px`,
                             boxShadow: `${peripheralImageBoxShadow}`,
-                            transition: `${transitionTime}`
+                            transition: `${transitionTime}s`
                         }}
                 >
                   <img className="fancy-carousel-image" src={item}
@@ -130,11 +133,11 @@ export const FancyCarousel: FC<CarouselInfo>
                             left:      `${rotatedCoordinates[index][0]}px`, 
                             bottom:    `${rotatedCoordinates[index][1]}px`,
                             boxShadow: `${peripheralImageBoxShadow}`,
-                            transition: `${transitionTime}`
+                            transition: `${transitionTime}s`
                         }, ...focusElementStyling}}
                 >
                   <img className="fancy-carousel-image" src={item}
-                       style={{width: `${peripheralImageRadius*2}px`, height: `${peripheralImageRadius*2}px`, transition: `${transitionTime}`}} />
+                       style={{width: `${peripheralImageRadius*2}px`, height: `${peripheralImageRadius*2}px`, transition: `${transitionTime}s`}} />
                 </div>
             ))}
 
@@ -145,11 +148,11 @@ export const FancyCarousel: FC<CarouselInfo>
                           transform: `rotate(${carousel.elementOrientation}deg)`, width: `${centralImageRadius*2}px`, height: `${centralImageRadius*2}px`,
                           left: `${carouselRadius - centralImageRadius - 10}px`, bottom: `${carouselRadius - centralImageRadius - 10}px`,
                           boxShadow: `${centralImageBoxShadow}`,
-                          transition: `${transitionTime}`
+                          transition: `${transitionTime}s`
                       }}
                 > 
                 <img className="fancy-carousel-central-image" src={images[carousel.focusElement]}
-                  style={{width: `${centralImageRadius*2}px`, height: `${centralImageRadius*2}px`, transition: `${transitionTime}`}} 
+                  style={{width: `${centralImageRadius*2}px`, height: `${centralImageRadius*2}px`, transition: `${transitionTime}s`}} 
                 />
             </div>
           </div>
