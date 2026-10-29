@@ -2,10 +2,26 @@
   "name": "react-fancy-circular-carousel",
   "version": "1.0.8",
   "description": "Interactive circular carousel with image elements highly customisable as per the developer's needs",
-  "main": "index.js",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "types": "esm/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./esm/index.d.ts",
+        "default": "./esm/index.js"
+      },
+      "require": {
+        "types": "./cjs/index.d.ts",
+        "default": "./cjs/index.js"
+      }
+    },
+    "./FancyCarousel.css": "./FancyCarousel.css",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "npm run clean && tsc && cp package.json README.md ./dist"
+    "build": "npm run clean && tsc && tsc -p tsconfig.cjs.json && echo '{\"type\": \"module\"}' > dist/esm/package.json && cp package.json README.md LICENSE src/FancyCarousel.css ./dist"
   },
   "keywords": ["react", "slider", "carousel", "image-slider"],
   "author": {
@@ -23,6 +39,9 @@
     "email" : "ninadsutrave@gmail.com"
   }, 
   "license": "MIT",
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
   "devDependencies": {
     "@types/react": "^18.0.28",
     "react": "^18.2.0",

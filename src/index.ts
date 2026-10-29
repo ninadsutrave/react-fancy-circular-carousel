@@ -1,3 +1,3 @@
-import { FancyCarousel } from './FancyCarousel'
+import { FancyCarousel } from './FancyCarousel.js'
 
 export default FancyCarousel
