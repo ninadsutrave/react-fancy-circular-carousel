@@ -1,7 +1,13 @@
-import React, { FC, useState, useEffect, CSSProperties } from 'react'
+import React, { FC, useState, useEffect, useLayoutEffect, useRef, CSSProperties } from 'react'
+
+const useIsomorphicLayoutEffect = (typeof window !== 'undefined')?useLayoutEffect:useEffect
+
+// matches the margin on .fancy-carousel-element in FancyCarousel.css
+const elementMargin = 2
 
 interface CarouselInfo {
   images: string[],
+  imageAlts?: string[],
   setFocusElement?: (focusElement: number) => void,
   offsetAngle?: number,
   carouselRadius?: number,
@@ -19,30 +25,33 @@ interface CarouselInfo {
   navigationButtonRadius?: number,
   navigationButtonBgColor?: string,
   navigationButtonColor?: string,
-  navigationButtonStyling?: CSSProperties
+  navigationButtonStyling?: CSSProperties,
+  responsive?: boolean
 }
 
 export const FancyCarousel: FC<CarouselInfo> 
     = ({
-        images, 
+        images,
+        imageAlts = [],
         setFocusElement = () => {},
         offsetAngle = 0,
-        carouselRadius = 400, 
-        centralImageRadius = 125, 
+        carouselRadius: baseCarouselRadius = 400, 
+        centralImageRadius: baseCentralImageRadius = 125, 
         centralImageBoxShadow = '5px 10px 18px #888888',
-        peripheralImageRadius = 75, 
+        peripheralImageRadius: basePeripheralImageRadius = 75, 
         peripheralImageBoxShadow = '5px 10px 18px #888888',
         focusElementStyling = {},
         border = true, 
-        borderWidth = 5, 
+        borderWidth: baseBorderWidth = 5, 
         borderHexColor  = 'CB786C', 
         autoRotateTime = 0,
         transitionTime = 0.5,
-        navigationTextSize = 2,
-        navigationButtonRadius = 32.5, 
+        navigationTextSize: baseNavigationTextSize = 2,
+        navigationButtonRadius: baseNavigationButtonRadius = 32.5, 
         navigationButtonBgColor = 'CB786C', 
         navigationButtonColor = 'FFFFFF',
-        navigationButtonStyling = {}
+        navigationButtonStyling = {},
+        responsive = false
       }: CarouselInfo) => {
 
   const [carousel, setCarousel] = useState({
@@ -50,6 +59,35 @@ export const FancyCarousel: FC<CarouselInfo>
     elementOrientation: 0,
     focusElement: 0
   })
+
+  // scale factor for all sizes, 0 until measured so nothing animates in from full size
+  const [scale, setScale] = useState(responsive ? 0 : 1)
+  const wrapperRef = useRef<HTMLDivElement>(null)
+
+  useIsomorphicLayoutEffect(() => {
+    const wrapper = wrapperRef.current
+    if(!responsive || !wrapper) {
+      setScale(1)
+      return
+    }
+    // the wrapper fills its parent and ignores its own contents (contain: inline-size),
+    // so its width never depends on the scale; fall back to the viewport if it has none
+    const fit = () => {
+      const width = (wrapper.clientWidth || document.documentElement.clientWidth) - 2*elementMargin
+      setScale(Math.min(1, width / (2*(baseCarouselRadius + basePeripheralImageRadius))))
+    }
+    fit()
+    const observer = new ResizeObserver(fit)
+    observer.observe(wrapper)
+    return () => observer.disconnect()
+  }, [responsive, baseCarouselRadius, basePeripheralImageRadius])
+
+  const carouselRadius: number = baseCarouselRadius*scale
+  const centralImageRadius: number = baseCentralImageRadius*scale
+  const peripheralImageRadius: number = basePeripheralImageRadius*scale
+  const borderWidth: number = baseBorderWidth*scale
+  const navigationTextSize: number = baseNavigationTextSize*scale
+  const navigationButtonRadius: number = baseNavigationButtonRadius*scale
 
   const noOfImages: number = images.length
   const theta: number = 360/noOfImages
@@ -96,8 +134,13 @@ export const FancyCarousel: FC<CarouselInfo>
     rotatedCoordinates.push([centerCoordinate + (item[0] - centerCoordinate)*Math.cos(totalDeviation) - (item[1] - centerCoordinate)*Math.sin(totalDeviation), centerCoordinate + (item[0] - centerCoordinate)*Math.sin(totalDeviation) + (item[1] - centerCoordinate)*Math.cos(totalDeviation)])
   })
 
+  // in responsive mode, pad by the peripheral image radius so images on the ring's edge stay inside
+  const wrapperStyle: CSSProperties = (responsive)?{width: '100%', boxSizing: 'border-box', contain: 'inline-size', padding: `${peripheralImageRadius + elementMargin}px`}:{}
+
+  if(!scale) return <div className="fancy-carousel-wrapper-element" ref={wrapperRef} style={wrapperStyle} />
+
   return (
-      <div className="fancy-carousel-wrapper-element">
+      <div className="fancy-carousel-wrapper-element" ref={wrapperRef} style={wrapperStyle}>
         <div className="fancy-carousel-border" 
              style={{backgroundImage: borderElement, height: `${carouselRadius*2}px`, width: `${carouselRadius*2}px`, transition: `${transitionTime}s`}}
         >
@@ -122,7 +165,7 @@ export const FancyCarousel: FC<CarouselInfo>
                             transition: `${transitionTime}s`
                         }}
                 >
-                  <img className="fancy-carousel-image" src={item}
+                  <img className="fancy-carousel-image" src={item} alt={imageAlts[index] ?? ''}
                     style={{width: `${peripheralImageRadius*2}px`, height: `${peripheralImageRadius*2}px`}} />
                 </div>:
                 <div
@@ -136,7 +179,7 @@ export const FancyCarousel: FC<CarouselInfo>
                             transition: `${transitionTime}s`
                         }, ...focusElementStyling}}
                 >
-                  <img className="fancy-carousel-image" src={item}
+                  <img className="fancy-carousel-image" src={item} alt={imageAlts[index] ?? ''}
                        style={{width: `${peripheralImageRadius*2}px`, height: `${peripheralImageRadius*2}px`, transition: `${transitionTime}s`}} />
                 </div>
             ))}
@@ -146,12 +189,12 @@ export const FancyCarousel: FC<CarouselInfo>
                 key={noOfImages}
                 style={{ 
                           transform: `rotate(${carousel.elementOrientation}deg)`, width: `${centralImageRadius*2}px`, height: `${centralImageRadius*2}px`,
-                          left: `${carouselRadius - centralImageRadius - 10}px`, bottom: `${carouselRadius - centralImageRadius - 10}px`,
+                          left: `${carouselRadius - centralImageRadius - 10*scale}px`, bottom: `${carouselRadius - centralImageRadius - 10*scale}px`,
                           boxShadow: `${centralImageBoxShadow}`,
                           transition: `${transitionTime}s`
                       }}
                 > 
-                <img className="fancy-carousel-central-image" src={images[carousel.focusElement]}
+                <img className="fancy-carousel-central-image" src={images[carousel.focusElement]} alt={imageAlts[carousel.focusElement] ?? ''}
                   style={{width: `${centralImageRadius*2}px`, height: `${centralImageRadius*2}px`, transition: `${transitionTime}s`}} 
                 />
             </div>
@@ -160,7 +203,7 @@ export const FancyCarousel: FC<CarouselInfo>
 
         <div className={"fancy-carousel-navigators " + ((autoRotateTime)?"invisible":"")}
              style={{gap: `${carouselRadius*2}px`, marginLeft: `-${navigationButtonRadius*1.8}px`}}>
-              <button className="fancy-carousel-navigation-button" onClick={rotateLeft}
+              <button type="button" aria-label="Previous image" className="fancy-carousel-navigation-button" onClick={rotateLeft}
                       style={{...{ 
                               width: `${navigationButtonRadius*2}px`, height: `${navigationButtonRadius*2}px`,
                               backgroundColor: `#${navigationButtonBgColor}`, color: `#${navigationButtonColor}`,
@@ -169,7 +212,7 @@ export const FancyCarousel: FC<CarouselInfo>
               >
                 ↓
               </button>
-              <button className="fancy-carousel-navigation-button" onClick={rotateRight}
+              <button type="button" aria-label="Next image" className="fancy-carousel-navigation-button" onClick={rotateRight}
                       style={{...{ 
                               width: `${navigationButtonRadius*2}px`, height: `${navigationButtonRadius*2}px`,
                               backgroundColor: `#${navigationButtonBgColor}`, color: `#${navigationButtonColor}`,

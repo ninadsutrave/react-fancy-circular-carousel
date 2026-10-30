@@ -28,6 +28,7 @@ Try the demo [here](https://carousel-demopage.netlify.app).
 | **Parameter** | **Type** | **Description** |
 |:---|:---|:---|
 | images | String[] | `mandatory` List of image sources |
+| imageAlts | String[] | `optional` Alt text for each image, in the same order as `images` |
 | setFocusElement | Function | `optional` SetState method to get focus element in parent component |
 | offsetAngle | Number | `optional` Angle in degrees to offset the carousel elements |
 | carouselRadius | Number | `optional` Carousel radius in px |
@@ -46,6 +47,7 @@ Try the demo [here](https://carousel-demopage.netlify.app).
 | navigationButtonColor | String | `optional` ↓ Arrow hex color as a string excluding the '#' |
 | navigationButtonBgColor | String | `optional` Navigation button hex color as a string excluding the '#' |
 | navigationButtonStyling | React.CSSProperties | `optional` Custom styling for navigation buttons |
+| responsive | Boolean | `optional` Fill the width of the parent element, scaling every size down to fit (never above the sizes given) |
 
 ### Usage
 
@@ -61,14 +63,14 @@ import image3 from './assets/image3.png';
 import image4 from './assets/image4.png';
 
 
-const YourComponent = () => (
+const YourComponent = () => {
 
   const images = [image1, image2, image3, image4];
 
   return <div className="carousel">
     <FancyCarousel images={images} />
   </div>
-);
+};
 
 export default YourComponent;
 ```
@@ -89,7 +91,7 @@ import image2 from './assets/image2.png';
 import image3 from './assets/image3.png';
 import image4 from './assets/image4.png';
 
-const YourComponent = () => (
+const YourComponent = () => {
 
   // the focus element would be the array index of the image currently at focus
   const [focusElement, setFocusElement] = useState(0);
@@ -102,8 +104,8 @@ const YourComponent = () => (
       <div className="info-box-wrapper">
         <p> {info[focusElement]} </p>
       </div>
-    <div>
-);
+    </div>
+};
 
 export default YourComponent;
 ```
@@ -126,7 +128,7 @@ import image2 from './assets/image2.png';
 import image3 from './assets/image3.png';
 import image4 from './assets/image4.png';
 
-const YourComponent = () => (
+const YourComponent = () => {
 
   const images = [image1, image2, image3, image4];
 
@@ -142,7 +144,7 @@ const YourComponent = () => (
       borderHexColor={'1c364f'}
     />
   </div>
-);
+};
 
 export default YourComponent;
 ```
