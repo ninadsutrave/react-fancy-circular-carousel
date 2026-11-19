@@ -23,6 +23,7 @@
     "clean": "rm -rf dist",
     "build": "npm run clean && tsc && tsc -p tsconfig.cjs.json && echo '{\"type\": \"module\"}' > dist/esm/package.json && cp package.json README.md LICENSE src/FancyCarousel.css ./dist"
   },
+  "sideEffects": ["*.css"],
   "keywords": ["react", "slider", "carousel", "image-slider"],
   "author": {
     "name": "Ninad Sutrave",

@@ -1,11 +1,14 @@
-import React, { FC, ReactNode, Children, useState, useEffect, useLayoutEffect, useRef, CSSProperties } from 'react'
+import React, { FC, ReactNode, Children, useState, useEffect, useLayoutEffect, useRef, CSSProperties, KeyboardEvent, FocusEvent } from 'react'
 
 const useIsomorphicLayoutEffect = (typeof window !== 'undefined')?useLayoutEffect:useEffect
 
 // matches the margin on .fancy-carousel-element in FancyCarousel.css
 const elementMargin = 2
 
-interface CarouselInfo {
+// colours may be given with or without the '#', as 3 or 6 digit hex
+const hex = (color: string) => color.replace(/^#/, '')
+
+export interface FancyCarouselProps {
   images?: string[],
   imageAlts?: string[],
   children?: ReactNode,
@@ -28,10 +31,12 @@ interface CarouselInfo {
   navigationButtonColor?: string,
   navigationButtonStyling?: CSSProperties,
   rotateOnClick?: boolean,
+  pauseOnHover?: boolean,
+  showNavigation?: boolean,
   responsive?: boolean
 }
 
-export const FancyCarousel: FC<CarouselInfo>
+export const FancyCarousel: FC<FancyCarouselProps>
     = ({
         images,
         imageAlts = [],
@@ -55,11 +60,16 @@ export const FancyCarousel: FC<CarouselInfo>
         navigationButtonColor = 'FFFFFF',
         navigationButtonStyling = {},
         rotateOnClick = true,
+        pauseOnHover = true,
+        showNavigation = !autoRotateTime,
         responsive = false
-      }: CarouselInfo) => {
+      }: FancyCarouselProps) => {
 
   // number of steps the ring has turned, +1 for every "next"
   const [step, setStep] = useState(0)
+  const [hovered, setHovered] = useState(false)
+  const [keyboardFocused, setKeyboardFocused] = useState(false)
+  const paused: boolean = pauseOnHover && (hovered || keyboardFocused)
 
   // scale factor for all sizes, 0 until measured so nothing animates in from full size
   const [scale, setScale] = useState(responsive ? 0 : 1)
@@ -98,7 +108,7 @@ export const FancyCarousel: FC<CarouselInfo>
   const focusElement: number = (noOfImages)?((step % noOfImages) + noOfImages) % noOfImages:0
   const carouselOrientation: number = (noOfImages)?step*theta:0
 
-  const borderElement: string = (border)?`url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'${carouselRadius*2}\' ry=\'${carouselRadius*2}\' stroke=\'%23${borderHexColor}FF\' stroke-width=\'${borderWidth}\' stroke-dasharray=\'6%2c 24\' stroke-dashoffset=\'0\' stroke-linecap=\'square\'/%3e%3c/svg%3e")`:''
+  const borderElement: string = (border)?`url("data:image/svg+xml,%3csvg width=\'100%25\' height=\'100%25\' xmlns=\'http://www.w3.org/2000/svg\'%3e%3crect width=\'100%25\' height=\'100%25\' fill=\'none\' rx=\'${carouselRadius*2}\' ry=\'${carouselRadius*2}\' stroke=\'%23${hex(borderHexColor)}\' stroke-width=\'${borderWidth}\' stroke-dasharray=\'6%2c 24\' stroke-dashoffset=\'0\' stroke-linecap=\'square\'/%3e%3c/svg%3e")`:''
 
   const rotateRight = () => {
       setStep(prev => prev + 1)
@@ -121,11 +131,33 @@ export const FancyCarousel: FC<CarouselInfo>
     setFocusElement(focusElement)
   }, [focusElement])
 
+  // restarts after every step, so a manual turn gets the full wait before the next automatic one
   useEffect(() => {
-    if(!autoRotateTime) return
-    const timer = setInterval(rotateRight, autoRotateTime*1000)
-    return () => clearInterval(timer)
-  }, [autoRotateTime])
+    if(!autoRotateTime || paused) return
+    const timer = setTimeout(rotateRight, autoRotateTime*1000)
+    return () => clearTimeout(timer)
+  }, [autoRotateTime, step, paused])
+
+  const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement
+    if(target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) return
+    if(event.key === 'ArrowLeft') rotateLeft()
+    else if(event.key === 'ArrowRight') rotateRight()
+    else return
+    event.preventDefault()
+  }
+
+  // pause for keyboard focus only; a mouse click also focuses the carousel but shouldn't stop it
+  const onFocus = (event: FocusEvent<HTMLDivElement>) => {
+    let keyboard = true
+    // older browsers don't know :focus-visible, so treat any focus as keyboard focus there
+    try { keyboard = event.target.matches(':focus-visible') } catch {}
+    if(keyboard) setKeyboardFocused(true)
+  }
+
+  const onBlur = (event: FocusEvent<HTMLDivElement>) => {
+    if(!event.currentTarget.contains(event.relatedTarget as Node | null)) setKeyboardFocused(false)
+  }
 
   var newCoordinates: number[][] = []
   for(let index = 0; index < noOfImages; index++) {
@@ -157,7 +189,10 @@ export const FancyCarousel: FC<CarouselInfo>
   if(!scale || !noOfImages) return <div className="fancy-carousel-wrapper-element" ref={wrapperRef} style={wrapperStyle} />
 
   return (
-      <div className="fancy-carousel-wrapper-element" ref={wrapperRef} style={wrapperStyle}>
+      <div className="fancy-carousel-wrapper-element" ref={wrapperRef} style={wrapperStyle}
+           role="region" aria-roledescription="carousel" aria-label="Carousel" tabIndex={0}
+           onKeyDown={onKeyDown} onFocus={onFocus} onBlur={onBlur}
+           onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
         <div className="fancy-carousel-border"
              style={{backgroundImage: borderElement, height: `${carouselRadius*2}px`, width: `${carouselRadius*2}px`, transition: `${transitionTime}s`}}
         >
@@ -203,25 +238,25 @@ export const FancyCarousel: FC<CarouselInfo>
           </div>
         </div>
 
-        <div className={"fancy-carousel-navigators " + ((autoRotateTime)?"invisible":"")}
+        <div className={"fancy-carousel-navigators " + ((showNavigation)?"":"fancy-carousel-hidden")}
              style={{gap: `${carouselRadius*2}px`, marginLeft: `-${navigationButtonRadius*1.8}px`}}>
               <button type="button" aria-label="Previous image" className="fancy-carousel-navigation-button" onClick={rotateLeft}
                       style={{...{
                               width: `${navigationButtonRadius*2}px`, height: `${navigationButtonRadius*2}px`,
-                              backgroundColor: `#${navigationButtonBgColor}`, color: `#${navigationButtonColor}`,
+                              backgroundColor: `#${hex(navigationButtonBgColor)}`, color: `#${hex(navigationButtonColor)}`,
                               fontSize: `${navigationTextSize}rem`
                             }, ...navigationButtonStyling}}
               >
-                ↓
+                ‹
               </button>
               <button type="button" aria-label="Next image" className="fancy-carousel-navigation-button" onClick={rotateRight}
                       style={{...{
                               width: `${navigationButtonRadius*2}px`, height: `${navigationButtonRadius*2}px`,
-                              backgroundColor: `#${navigationButtonBgColor}`, color: `#${navigationButtonColor}`,
+                              backgroundColor: `#${hex(navigationButtonBgColor)}`, color: `#${hex(navigationButtonColor)}`,
                               fontSize: `${navigationTextSize}rem`
                             }, ...navigationButtonStyling}}
               >
-                ↓
+                ›
               </button>
           </div>
       </div>

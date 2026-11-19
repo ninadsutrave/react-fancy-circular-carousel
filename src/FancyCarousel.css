@@ -26,14 +26,17 @@
 .fancy-carousel-navigation-button {
     color: white;
     border-radius: 50%;
-    outline: none;
     border: none;
 }
 
 .fancy-carousel-navigation-button:hover {
-    outline: none;
     border: none;
     cursor: pointer;
+}
+
+/* keep the focus ring for keyboard users only */
+.fancy-carousel-navigation-button:focus:not(:focus-visible), .fancy-carousel-wrapper-element:focus:not(:focus-visible) {
+    outline: none;
 }
 
 .fancy-carousel-element {
@@ -63,6 +66,13 @@
     justify-content: center;
 }
 
-.invisible {
+.fancy-carousel-hidden {
     display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fancy-carousel-border, .fancy-carousel, .fancy-carousel-element,
+    .fancy-carousel-image, .fancy-carousel-central-image, .fancy-carousel-item {
+        transition: none !important;
+    }
 }
