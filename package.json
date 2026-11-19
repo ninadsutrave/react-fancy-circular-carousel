@@ -21,7 +21,8 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "npm run clean && tsc && tsc -p tsconfig.cjs.json && echo '{\"type\": \"module\"}' > dist/esm/package.json && cp package.json README.md LICENSE src/FancyCarousel.css ./dist"
+    "build": "npm run clean && tsc && tsc -p tsconfig.cjs.json && echo '{\"type\": \"module\"}' > dist/esm/package.json && cp package.json README.md LICENSE src/FancyCarousel.css ./dist",
+    "test": "npm run build && node test/carousel.test.cjs"
   },
   "sideEffects": ["*.css"],
   "keywords": ["react", "slider", "carousel", "image-slider"],
@@ -45,6 +46,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
+    "jsdom": "^25.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.0.2"
