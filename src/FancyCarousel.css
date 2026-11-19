@@ -55,6 +55,14 @@
     object-fit: cover;
 }
 
+.fancy-carousel-item {
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .invisible {
     display: none;
 }
