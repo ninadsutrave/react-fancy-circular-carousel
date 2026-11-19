@@ -27,8 +27,9 @@ Try the demo [here](https://carousel-demopage.netlify.app).
 
 | **Parameter** | **Type** | **Description** |
 |:---|:---|:---|
-| images | String[] | `mandatory` List of image sources |
+| images | String[] | `mandatory` List of image sources (unless you pass children instead) |
 | imageAlts | String[] | `optional` Alt text for each image, in the same order as `images` |
+| children | React.ReactNode | `optional` Custom elements to place around the carousel instead of images |
 | setFocusElement | Function | `optional` SetState method to get focus element in parent component |
 | offsetAngle | Number | `optional` Angle in degrees to offset the carousel elements |
 | carouselRadius | Number | `optional` Carousel radius in px |
@@ -47,6 +48,7 @@ Try the demo [here](https://carousel-demopage.netlify.app).
 | navigationButtonColor | String | `optional` ↓ Arrow hex color as a string excluding the '#' |
 | navigationButtonBgColor | String | `optional` Navigation button hex color as a string excluding the '#' |
 | navigationButtonStyling | React.CSSProperties | `optional` Custom styling for navigation buttons |
+| rotateOnClick | Boolean | `optional` Clicking an element rotates it into focus (default true) |
 | responsive | Boolean | `optional` Fill the width of the parent element, scaling every size down to fit (never above the sizes given) |
 
 ### Usage
@@ -105,6 +107,32 @@ const YourComponent = () => {
         <p> {info[focusElement]} </p>
       </div>
     </div>
+};
+
+export default YourComponent;
+```
+
+### Custom elements
+
+Pass children instead of `images` to place your own elements around the carousel. Each child is clipped to a circle, and the element in focus is also shown in the centre, so it is rendered twice.
+
+```jsx
+import React from "react";
+
+import FancyCarousel from "react-fancy-circular-carousel";
+import 'react-fancy-circular-carousel/FancyCarousel.css';
+
+const cities = ['Delhi', 'Mumbai', 'Bengaluru', 'Kolkata'];
+
+const YourComponent = () => {
+
+  return <div className="carousel">
+    <FancyCarousel>
+      {cities.map(city => (
+        <div key={city} className="city-card">{city}</div>
+      ))}
+    </FancyCarousel>
+  </div>
 };
 
 export default YourComponent;
