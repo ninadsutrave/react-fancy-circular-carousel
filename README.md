@@ -9,6 +9,7 @@ Try the demo [here](https://carousel-demopage.netlify.app).
 - Circular image carousel
 - Everything you see is customisable
 - Get focus element to add in your own components
+- Images or any custom elements, keyboard and click navigation
 - Smooth, easy to implement, fantastic UI
 
 ## Installation
@@ -40,14 +41,16 @@ Try the demo [here](https://carousel-demopage.netlify.app).
 | focusElementStyling | React.CSSProperties | `optional` Custom styling for the element in focus |
 | border | Boolean | `optional` Enable/disable bordering |
 | borderWidth | Number | `optional` Border stroke width property in px |
-| borderHexColor | String | `optional` Border hex color as a string excluding the '#' |
+| borderHexColor | String | `optional` Border hex color, with or without the '#' |
 | autoRotateTime | Number | `optional` Time in seconds for an auto rotating carousel |
+| pauseOnHover | Boolean | `optional` Pause auto rotation while hovered or focused with the keyboard (default true) |
 | transitionTime | Number | `optional` Time in seconds for the rotating transition |
-| navigationTextSize | Number | `optional` ↓ Arrow font size in rem |
+| navigationTextSize | Number | `optional` Arrow font size in rem |
 | navigationButtonRadius | Number | `optional` Navigation button radius in px |
-| navigationButtonColor | String | `optional` ↓ Arrow hex color as a string excluding the '#' |
-| navigationButtonBgColor | String | `optional` Navigation button hex color as a string excluding the '#' |
+| navigationButtonColor | String | `optional` Arrow hex color, with or without the '#' |
+| navigationButtonBgColor | String | `optional` Navigation button hex color, with or without the '#' |
 | navigationButtonStyling | React.CSSProperties | `optional` Custom styling for navigation buttons |
+| showNavigation | Boolean | `optional` Show the navigation buttons (default: shown unless auto rotating) |
 | rotateOnClick | Boolean | `optional` Clicking an element rotates it into focus (default true) |
 | responsive | Boolean | `optional` Fill the width of the parent element, scaling every size down to fit (never above the sizes given) |
 
@@ -110,6 +113,14 @@ const YourComponent = () => {
 };
 
 export default YourComponent;
+```
+
+### Keyboard and imports
+
+The left and right arrow keys turn the carousel when it has keyboard focus. The component is also available as a named export, along with its props type:
+
+```tsx
+import { FancyCarousel, FancyCarouselProps } from "react-fancy-circular-carousel";
 ```
 
 ### Custom elements
